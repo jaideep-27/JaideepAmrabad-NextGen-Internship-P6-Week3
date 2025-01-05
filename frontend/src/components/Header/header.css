@@ -94,6 +94,10 @@ body {
     color: #fff;
 }
 
+.btn secondary__btn{
+    color: #000000 !important;
+}
+
 @media screen and (max-width: 992px) {
     .menu {
         width: 100%;
