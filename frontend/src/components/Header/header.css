@@ -7,7 +7,11 @@
     left: 0;
     background: #fff;
     z-index: 9999;
-    box-shadow: 3px 3px 8px -3px #ddd;
+}
+
+/* Global style to prevent content overlap */
+body {
+    padding-top: 90px; /* Same as header height */
 }
 
 .nav__wrapper {
@@ -22,11 +26,15 @@
 }
 
 .logo img {
-    width: 100%;
+    width: 180px;
     height: auto;
 }
 
 .menu {
+    display: flex;
+    align-items: center;
+    gap: 2.7rem;
+    margin-bottom: 0;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -49,10 +57,10 @@
 }
 
 .mobile__menu {
-    display: none;
-    cursor: pointer;
     font-size: 1.3rem;
     color: var(--heading-color);
+    display: none;
+    cursor: pointer;
 }
 
 .sticky__header {
@@ -77,9 +85,9 @@
     }
 }
 
-/* Add margin to main content to prevent overlap */
 main {
-    margin-top: 80px;
+    margin-top: 0;
+    padding-top: 20px;
 }
 
 .nav__right .btn {
@@ -93,6 +101,11 @@ main {
 .nav__right .btn:hover {
     background: var(--secondary-color);
     color: #fff;
+}
+
+.nav__right .btn a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .nav__right .btn.secondary__btn {
@@ -185,8 +198,8 @@ main {
 
 /* Mobile Menu Styles */
 @media only screen and (max-width: 992px) {
-    .logo {
-        width: 140px;
+    .logo img {
+        width: 150px;
     }
 
     .navigation {

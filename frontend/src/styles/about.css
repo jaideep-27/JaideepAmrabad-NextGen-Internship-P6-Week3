@@ -1,5 +1,6 @@
 .about__section {
-    padding: 2rem 0;
+    padding-top: 40px; /* Increased padding to account for fixed header */
+    padding-bottom: 2rem;
 }
 
 .about__content {
@@ -26,11 +27,12 @@
     border-radius: 10px;
     background: var(--secondary-color-bg);
     transition: all 0.3s ease;
+    box-shadow: none !important;
 }
 
 .about__card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: none !important;
 }
 
 .about__card-content {
@@ -93,11 +95,21 @@
     margin-top: 0.5rem;
 }
 
+.about__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 .about__img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 15%;
+    height: auto;
     border-radius: 10px;
+    filter: none;
+    -webkit-filter: none;
+    box-shadow: none !important;
 }
 
 @media screen and (max-width: 992px) {

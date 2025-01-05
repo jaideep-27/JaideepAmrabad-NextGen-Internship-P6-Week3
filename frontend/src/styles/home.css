@@ -28,9 +28,11 @@
 }
 .hero__content{
     padding: 3.5rem;
+    padding-top: 1.5rem; /* Added padding to account for fixed header */
 }
 .hero__img-box{
     padding-top: 2rem;
+    padding-top: 1.5rem; /* Added padding to account for fixed header */
 }
 
 .services__subtitle{
