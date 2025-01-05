@@ -3,7 +3,13 @@ services:
     name: tour-management-backend
     env: node
     buildCommand: cd backend && npm install
-    startCommand: cd backend && node index.js
+    startCommand: cd backend && npm start
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 4000
+      - key: MONGO_URI
+        value: mongodb+srv://Jaideep:Sj986625@tour-management.4kf8j.mongodb.net/?retryWrites=true&w=majority&appName=tour-management
+      - key: JWT_SECRET_KEY
+        value: aee0cad85391655aeb70937a8523dee0f00242319df6aa4500cf4f39dc82187c58f9750d73134e153f721496378d529c71557e50170bf5f60da22ac8f5575f6f
