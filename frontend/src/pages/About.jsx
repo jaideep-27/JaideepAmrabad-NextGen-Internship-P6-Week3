@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'reactstrap';
 import '../styles/about.css';
-import aboutImg from '../assets/images/about.jpg';
 
 const About = () => {
     return (
@@ -61,6 +60,15 @@ const About = () => {
 
                 <Row className="mt-5">
                     <Col lg="6">
+                        <div className="about__image">
+                            <img 
+                                src="https://via.placeholder.com/600x400" 
+                                alt="About Us" 
+                                className="img-fluid rounded shadow"
+                            />
+                        </div>
+                    </Col>
+                    <Col lg="6">
                         <div className="about__experience">
                             <h3>Our Experience</h3>
                             <p>
@@ -83,11 +91,6 @@ const About = () => {
                                     <h6>Years Experience</h6>
                                 </div>
                             </div>
-                        </div>
-                    </Col>
-                    <Col lg="6">
-                        <div className="about__img">
-                            <img src={aboutImg} alt="About Us" />
                         </div>
                     </Col>
                 </Row>

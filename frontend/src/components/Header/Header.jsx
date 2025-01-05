@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState, useContext } from 'react';
 import { Container, Row, Button } from 'reactstrap';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import logo from '../../assets/images/logo.png';
+// Use a placeholder logo if the actual logo is missing
+// import logo from '../../assets/images/logo.png';
 import './header.css';
 
 const Header = () => {
@@ -63,39 +64,39 @@ const Header = () => {
   }, [dropdownOpen]);
 
   return (
-    <header className='header' ref={headerRef}>
+    <header className="header" ref={headerRef}>
       <Container>
         <Row>
-          <div className='nav__wrapper d-flex align-items-center justify-content-between'>
-            <div className='logo'>
-              <Link to='/'>
-                <img src={logo} alt='Travel World' />
+          <div className="nav__wrapper d-flex align-items-center justify-content-between">
+            <div className="logo">
+              <Link to="/">
+                <img src="https://via.placeholder.com/150x50" alt="Travel World" />
               </Link>
             </div>
 
             <div className={`navigation ${mobileMenuOpen ? 'show__menu' : ''}`} ref={menuRef}>
-              <ul className='menu d-flex align-items-center gap-5'>
-                <li className='nav__item'>
+              <ul className="menu d-flex align-items-center gap-5">
+                <li className="nav__item">
                   <NavLink 
-                    to='/' 
+                    to="/" 
                     className={({isActive}) => isActive ? 'active__link' : ''}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Home
                   </NavLink>
                 </li>
-                <li className='nav__item'>
+                <li className="nav__item">
                   <NavLink 
-                    to='/tours' 
+                    to="/tours" 
                     className={({isActive}) => isActive ? 'active__link' : ''}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Tours
                   </NavLink>
                 </li>
-                <li className='nav__item'>
+                <li className="nav__item">
                   <NavLink 
-                    to='/about' 
+                    to="/about" 
                     className={({isActive}) => isActive ? 'active__link' : ''}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -105,25 +106,25 @@ const Header = () => {
               </ul>
             </div>
 
-            <div className='nav__right d-flex align-items-center gap-4'>
+            <div className="nav__right d-flex align-items-center gap-4">
               {user ? (
-                <div className='user__info'>
-                  <div className='user__dropdown-toggle' onClick={toggleDropdown}>
-                    <i className='ri-user-line'></i>
+                <div className="user__info">
+                  <div className="user__dropdown-toggle" onClick={toggleDropdown}>
+                    <i className="ri-user-line"></i>
                     <span>{user.username}</span>
                   </div>
                   {dropdownOpen && (
-                    <div className='dropdown-menu'>
-                      <div className='dropdown-item' onClick={navigateToProfile}>
-                        <i className='ri-user-settings-line'></i>
+                    <div className="dropdown-menu">
+                      <div className="dropdown-item" onClick={navigateToProfile}>
+                        <i className="ri-user-settings-line"></i>
                         Profile
                       </div>
-                      <div className='dropdown-item' onClick={navigateToBookings}>
-                        <i className='ri-calendar-check-line'></i>
+                      <div className="dropdown-item" onClick={navigateToBookings}>
+                        <i className="ri-calendar-check-line"></i>
                         My Bookings
                       </div>
-                      <div className='dropdown-item' onClick={logout}>
-                        <i className='ri-logout-box-line'></i>
+                      <div className="dropdown-item" onClick={logout}>
+                        <i className="ri-logout-box-line"></i>
                         Logout
                       </div>
                     </div>
@@ -131,16 +132,16 @@ const Header = () => {
                 </div>
               ) : (
                 <>
-                  <Button className='btn secondary__btn'>
-                    <Link to='/login'>Login</Link>
+                  <Button className="btn secondary__btn">
+                    <Link to="/login">Login</Link>
                   </Button>
-                  <Button className='btn primary__btn'>
-                    <Link to='/register'>Register</Link>
+                  <Button className="btn primary__btn">
+                    <Link to="/register">Register</Link>
                   </Button>
                 </>
               )}
-              <span className='mobile__menu' onClick={toggleMobileMenu}>
-                <i className='ri-menu-line'></i>
+              <span className="mobile__menu" onClick={toggleMobileMenu}>
+                <i className="ri-menu-line"></i>
               </span>
             </div>
           </div>
