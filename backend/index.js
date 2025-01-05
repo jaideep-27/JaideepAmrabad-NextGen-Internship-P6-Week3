@@ -16,7 +16,7 @@ const port = process.env.PORT || 8000
 
 const corsOptions ={
     origin: process.env.NODE_ENV === 'production' 
-        ? ['https://tour-management-7.netlify.app']
+        ? ['https://tour-management-7.netlify.app', 'https://tour-management-backend-8ubu.onrender.com']
         : 'http://localhost:3000',
     credentials:true
 }
