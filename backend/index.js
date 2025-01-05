@@ -15,7 +15,9 @@ const app = express()
 const port = process.env.PORT || 8000
 
 const corsOptions ={
-    origin:'http://localhost:3000',
+    origin: process.env.NODE_ENV === 'production' 
+        ? ['https://your-netlify-site-name.netlify.app']
+        : 'http://localhost:3000',
     credentials:true
 }
 
