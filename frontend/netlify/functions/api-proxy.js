@@ -1,8 +1,8 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   const { path, httpMethod, body, headers } = event;
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.BACKEND_URL || process.env.REACT_APP_API_URL;
 
   try {
     const response = await fetch(`${apiUrl}${path}`, {
@@ -27,9 +27,10 @@ exports.handler = async (event, context) => {
       },
     };
   } catch (error) {
+    console.error('Proxy error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
+      body: JSON.stringify({ error: 'Internal Server Error', details: error.message }),
     };
   }
 };
