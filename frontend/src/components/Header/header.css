@@ -9,9 +9,8 @@
     z-index: 9999;
 }
 
-/* Global style to prevent content overlap */
 body {
-    padding-top: 90px; /* Same as header height */
+    padding-top: 90px;
 }
 
 .nav__wrapper {
@@ -73,197 +72,72 @@ body {
     left: 0;
     box-shadow: 3px 3px 8px -3px #ddd;
     z-index: 9999;
-    animation: headerSticky 0.3s ease forwards;
 }
 
-@keyframes headerSticky {
-    from {
-        transform: translateY(-100px);
-    }
-    to {
-        transform: translateY(0);
-    }
+.nav__right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-main {
-    margin-top: 0;
-    padding-top: 20px;
-}
-
-.nav__right .btn {
-    padding: 0.5rem 1.5rem !important;
-    color: var(--heading-color);
+.nav__right button {
+    background: var(--secondary-color);
+    color: #fff !important;
+    padding: 0.4rem 1.5rem !important;
+    border-radius: 5px;
     border: none;
-    border-radius: 50px;
-    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
-.nav__right .btn:hover {
-    background: var(--secondary-color);
-    color: #fff;
-}
-
-.nav__right .btn a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.nav__right .btn.secondary__btn {
-    background: var(--secondary-color);
-    color: #fff;
-}
-
-.nav__right .btn.primary__btn {
+.nav__right button:hover {
     background: var(--primary-color);
     color: #fff;
 }
 
-.user__info {
-    position: relative;
-    cursor: pointer;
-    padding: 0 1rem;
-}
-
-.user__info i {
-    font-size: 1.3rem;
-    color: var(--heading-color);
-    margin-right: 0.5rem;
-}
-
-.user__dropdown-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.user__dropdown-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.user__info span {
-    color: var(--heading-color);
-    font-weight: 500;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 200px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0;
-    z-index: 9999;
-    animation: dropdownFade 0.2s ease;
-}
-
-@keyframes dropdownFade {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.dropdown-item {
-    padding: 0.5rem 1.5rem;
-    display: flex;
-    align-items: center;
-    column-gap: 0.5rem;
-    color: var(--heading-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.dropdown-item i {
-    font-size: 1.1rem;
-    color: var(--primary-color);
-}
-
-.dropdown-item:hover {
-    background: var(--secondary-color);
-    color: #fff;
-}
-
-.dropdown-item:hover i {
-    color: #fff;
-}
-
-/* Mobile Menu Styles */
-@media only screen and (max-width: 992px) {
-    .logo img {
-        width: 150px;
-    }
-
-    .navigation {
+@media screen and (max-width: 992px) {
+    .menu {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         position: fixed;
         top: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: 9999;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 999;
         display: none;
     }
 
-    .menu {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 250px;
-        height: 100%;
-        background: #fff;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        z-index: 9999;
-        padding: 2rem;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-    }
-
-    .show__menu {
+    .menu.show__menu {
         display: block;
-    }
-
-    .show__menu .menu {
-        transform: translateX(0);
     }
 
     .mobile__menu {
         display: block;
     }
 
-    .nav__right {
-        position: relative;
-        z-index: 1000;
-    }
-
-    .nav__right .btn {
-        padding: 0.4rem 1rem !important;
-        font-size: 0.9rem !important;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    .header {
-        height: 60px;
-        line-height: 60px;
-    }
-
-    .logo {
-        width: 120px;
-    }
-
-    .nav__right .btn {
+    .menu {
         display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 99;
+        padding-top: 80px;
+    }
+
+    .menu ul {
+        flex-direction: column;
+        text-align: center;
+        background: #fff;
+        padding: 2rem;
+    }
+
+    .menu ul li {
+        margin: 1rem 0;
+    }
+
+    .logo img {
+        width: 150px;
     }
 }
