@@ -1,0 +1,169 @@
+.profile-section {
+    padding: 50px 0;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.profile-card {
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.photo-upload {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.photo-input {
+    display: none;
+}
+
+.photo-upload label {
+    cursor: pointer;
+    margin: 0;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.profile-info h3 {
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.profile-info p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+.profile-details {
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-details h4 {
+    margin-bottom: 25px;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #555;
+}
+
+.form-control {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: none;
+}
+
+.update-btn {
+    background: var(--primary-color);
+    border: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.update-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.booking-history {
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.booking-info h5 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.booking-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-confirmed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.alert {
+    margin-bottom: 20px;
+    padding: 12px 20px;
+    border-radius: 4px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
