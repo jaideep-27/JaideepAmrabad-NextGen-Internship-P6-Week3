@@ -82,7 +82,7 @@ body {
 
 .nav__right button {
     background: var(--secondary-color);
-    color: #fff !important;
+    color: var(--heading-color);
     padding: 0.4rem 1.5rem !important;
     border-radius: 5px;
     border: none;
@@ -90,12 +90,10 @@ body {
 }
 
 .nav__right button:hover {
-    background: var(--primary-color);
-    color: #fff;
-}
-
-.btn secondary__btn{
-    color: #000000 !important;
+    background: transparent;
+    color: var(--heading-color);
+    opacity: 0.8;
+    transition: all 0.3s ease;
 }
 
 @media screen and (max-width: 992px) {
