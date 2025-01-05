@@ -1,0 +1,170 @@
+.about__section {
+    padding: 50px 0;
+}
+
+.about__content {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about__title {
+    font-size: 2.5rem;
+    color: var(--heading-color);
+    margin-bottom: 20px;
+}
+
+.about__desc {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about__card {
+    padding: 30px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.about__card:hover {
+    transform: translateY(-10px);
+}
+
+.about__card-content {
+    text-align: center;
+}
+
+.about__card-content i {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.about__card-content h3 {
+    font-size: 1.5rem;
+    color: var(--heading-color);
+    margin-bottom: 15px;
+}
+
+.about__card-content p {
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.about__experience {
+    padding: 20px;
+}
+
+.about__experience h3 {
+    font-size: 2rem;
+    color: var(--heading-color);
+    margin-bottom: 20px;
+}
+
+.about__experience p {
+    color: var(--text-color);
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.counter__wrapper {
+    margin-top: 30px;
+}
+
+.counter__box {
+    text-align: center;
+}
+
+.counter__box span {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+.counter__box h6 {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-top: 10px;
+}
+
+.about__img {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.about__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about__mission {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about__mission h3 {
+    font-size: 2rem;
+    color: var(--heading-color);
+    margin-bottom: 20px;
+}
+
+.about__mission p {
+    color: var(--text-color);
+    line-height: 1.7;
+}
+
+@media only screen and (max-width: 992px) {
+    .about__content {
+        margin-bottom: 30px;
+    }
+
+    .about__title {
+        font-size: 2rem;
+    }
+
+    .about__experience {
+        margin-bottom: 30px;
+    }
+
+    .about__img {
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .counter__wrapper {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .counter__box {
+        flex: 0 0 calc(50% - 10px);
+    }
+
+    .about__img {
+        height: 250px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .about__title {
+        font-size: 1.8rem;
+    }
+
+    .counter__box {
+        flex: 0 0 100%;
+    }
+
+    .about__img {
+        height: 200px;
+    }
+}
