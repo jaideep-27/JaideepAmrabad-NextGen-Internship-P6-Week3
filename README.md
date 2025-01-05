@@ -72,7 +72,7 @@ Interested in improving the platform? Pull requests are always welcome!
 
 ---
 
-### 📞 Connect With Us
+### 📞 Connect With Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/jaideep-amrabad/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/jaideep-27)
