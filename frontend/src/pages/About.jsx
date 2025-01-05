@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'reactstrap';
 import '../styles/about.css';
+import aboutImg from '../assets/images/about.jpg';
 
 const About = () => {
     return (
@@ -20,7 +21,7 @@ const About = () => {
                 </Row>
 
                 <Row className="mt-5">
-                    <Col lg="4" md="6">
+                    <Col lg="4" md="6" className="mb-4">
                         <Card className="about__card">
                             <div className="about__card-content">
                                 <i className="ri-map-pin-line"></i>
@@ -32,7 +33,7 @@ const About = () => {
                             </div>
                         </Card>
                     </Col>
-                    <Col lg="4" md="6">
+                    <Col lg="4" md="6" className="mb-4">
                         <Card className="about__card">
                             <div className="about__card-content">
                                 <i className="ri-customer-service-line"></i>
@@ -44,7 +45,7 @@ const About = () => {
                             </div>
                         </Card>
                     </Col>
-                    <Col lg="4" md="6">
+                    <Col lg="4" md="6" className="mb-4">
                         <Card className="about__card">
                             <div className="about__card-content">
                                 <i className="ri-shield-check-line"></i>
@@ -68,7 +69,7 @@ const About = () => {
                                 consultants is dedicated to providing personalized service and creating 
                                 tailored itineraries that match your preferences and budget.
                             </p>
-                            <div className="counter__wrapper d-flex align-items-center gap-5">
+                            <div className="counter__wrapper">
                                 <div className="counter__box">
                                     <span>12k+</span>
                                     <h6>Successful Trips</h6>
@@ -86,12 +87,12 @@ const About = () => {
                     </Col>
                     <Col lg="6">
                         <div className="about__img">
-                            <img src="/images/about.jpg" alt="About Us" />
+                            <img src={aboutImg} alt="About Us" />
                         </div>
                     </Col>
                 </Row>
 
-                <Row className="mt-5">
+                <Row>
                     <Col lg="12">
                         <div className="about__mission">
                             <h3>Our Mission</h3>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Container, Row, Col, Card, Form, Button, ListGroup } from 'reactstrap';
+import { Container, Row, Col, Card, Form, Button, Alert } from 'reactstrap';
 import { AuthContext } from '../context/AuthContext';
 import { BASE_URL } from '../utils/config';
 import '../styles/user-profile.css';
@@ -21,7 +21,7 @@ const UserProfile = () => {
     });
 
     // Fetch user's bookings
-    const { data: userBookings } = useFetch(`${BASE_URL}/booking/user/${user?._id}`);
+    const { data: userBookings, loading: bookingsLoading } = useFetch(`${BASE_URL}/booking/user/${user?._id}`);
 
     const handleChange = e => {
         setProfileData(prev => ({
@@ -33,6 +33,10 @@ const UserProfile = () => {
     const handlePhotoChange = e => {
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                setError('Image size should be less than 5MB');
+                return;
+            }
             const reader = new FileReader();
             reader.onloadend = () => {
                 setProfileData(prev => ({
@@ -101,119 +105,105 @@ const UserProfile = () => {
     };
 
     return (
-        <section className='profile-section'>
+        <section className='profile__section'>
             <Container>
                 <Row>
-                    <Col md={4}>
-                        <Card className='profile-card'>
-                            <div className='profile-photo-container'>
-                                <img 
-                                    src={profileData.photo || '/avatar.jpg'} 
-                                    alt='profile' 
-                                    className='profile-photo'
-                                />
-                                <div className='photo-upload'>
-                                    <input 
-                                        type='file' 
-                                        id='photo' 
-                                        accept='image/*'
-                                        onChange={handlePhotoChange}
-                                        className='photo-input'
-                                    />
-                                    <label htmlFor='photo'>Change Photo</label>
-                                </div>
+                    <Col lg='8' className='m-auto'>
+                        <Card className='profile__card'>
+                            <div className='profile__header'>
+                                <h2>Profile Settings</h2>
                             </div>
-                            <div className='profile-info'>
-                                <h3>{user?.username}</h3>
-                                <p>{user?.email}</p>
-                            </div>
-                        </Card>
-                    </Col>
-
-                    <Col md={8}>
-                        <Card className='profile-details'>
-                            <h4>Profile Settings</h4>
-                            {error && <div className='alert alert-danger'>{error}</div>}
-                            {success && <div className='alert alert-success'>{success}</div>}
-                            
+                            {error && <Alert color='danger'>{error}</Alert>}
+                            {success && <Alert color='success'>{success}</Alert>}
                             <Form onSubmit={handleSubmit}>
-                                <Row>
-                                    <Col md={6}>
-                                        <Form.Group>
-                                            <Form.Label>Username</Form.Label>
-                                            <Form.Control
-                                                type='text'
-                                                id='username'
-                                                value={profileData.username}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col md={6}>
-                                        <Form.Group>
-                                            <Form.Label>Email</Form.Label>
-                                            <Form.Control
-                                                type='email'
-                                                id='email'
-                                                value={profileData.email}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
+                                <div className='profile__photo'>
+                                    <img 
+                                        src={profileData.photo || 'https://via.placeholder.com/150'} 
+                                        alt='Profile' 
+                                        className='profile__image'
+                                    />
+                                    <div className='photo__upload'>
+                                        <input
+                                            type='file'
+                                            id='photo'
+                                            accept='image/*'
+                                            onChange={handlePhotoChange}
+                                            className='photo__input'
+                                        />
+                                        <label htmlFor='photo' className='photo__label'>
+                                            <i className='ri-camera-line'></i>
+                                        </label>
+                                    </div>
+                                </div>
 
-                                <Form.Group>
-                                    <Form.Label>Phone</Form.Label>
-                                    <Form.Control
+                                <div className='form__group'>
+                                    <label>Username</label>
+                                    <input
+                                        type='text'
+                                        id='username'
+                                        value={profileData.username}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+
+                                <div className='form__group'>
+                                    <label>Email</label>
+                                    <input
+                                        type='email'
+                                        id='email'
+                                        value={profileData.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+
+                                <div className='form__group'>
+                                    <label>Phone</label>
+                                    <input
                                         type='tel'
                                         id='phone'
                                         value={profileData.phone}
                                         onChange={handleChange}
                                     />
-                                </Form.Group>
+                                </div>
 
-                                <h5 className='mt-4'>Change Password</h5>
-                                <Row>
-                                    <Col md={12}>
-                                        <Form.Group>
-                                            <Form.Label>Current Password</Form.Label>
-                                            <Form.Control
-                                                type='password'
-                                                id='currentPassword'
-                                                value={profileData.currentPassword}
-                                                onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col md={6}>
-                                        <Form.Group>
-                                            <Form.Label>New Password</Form.Label>
-                                            <Form.Control
-                                                type='password'
-                                                id='newPassword'
-                                                value={profileData.newPassword}
-                                                onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col md={6}>
-                                        <Form.Group>
-                                            <Form.Label>Confirm New Password</Form.Label>
-                                            <Form.Control
-                                                type='password'
-                                                id='confirmPassword'
-                                                value={profileData.confirmPassword}
-                                                onChange={handleChange}
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                </Row>
+                                <div className='password__section'>
+                                    <h3>Change Password</h3>
+                                    <div className='form__group'>
+                                        <label>Current Password</label>
+                                        <input
+                                            type='password'
+                                            id='currentPassword'
+                                            value={profileData.currentPassword}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+
+                                    <div className='form__group'>
+                                        <label>New Password</label>
+                                        <input
+                                            type='password'
+                                            id='newPassword'
+                                            value={profileData.newPassword}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+
+                                    <div className='form__group'>
+                                        <label>Confirm New Password</label>
+                                        <input
+                                            type='password'
+                                            id='confirmPassword'
+                                            value={profileData.confirmPassword}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
 
                                 <Button 
                                     type='submit' 
-                                    className='update-btn mt-4'
+                                    className='update__btn'
                                     disabled={loading}
                                 >
                                     {loading ? 'Updating...' : 'Update Profile'}
@@ -221,23 +211,28 @@ const UserProfile = () => {
                             </Form>
                         </Card>
 
-                        <Card className='booking-history mt-4'>
-                            <h4>Booking History</h4>
-                            <ListGroup>
-                                {userBookings?.data?.map(booking => (
-                                    <ListGroup.Item key={booking._id} className='booking-item'>
-                                        <div className='booking-info'>
-                                            <h5>{booking.tourName}</h5>
-                                            <p>Date: {new Date(booking.bookAt).toLocaleDateString()}</p>
-                                            <p>Guests: {booking.guestSize}</p>
-                                            <span className={`status status-${booking.status?.toLowerCase()}`}>
-                                                {booking.status || 'Pending'}
-                                            </span>
+                        {userBookings && userBookings.length > 0 && (
+                            <Card className='bookings__card mt-4'>
+                                <div className='bookings__header'>
+                                    <h3>My Bookings</h3>
+                                </div>
+                                <div className='bookings__list'>
+                                    {userBookings.map((booking, index) => (
+                                        <div key={index} className='booking__item'>
+                                            <div className='booking__info'>
+                                                <h4>{booking.tourName}</h4>
+                                                <p>Date: {new Date(booking.bookAt).toLocaleDateString()}</p>
+                                                <p>Guests: {booking.guestSize}</p>
+                                                <p>Status: <span className={`status ${booking.status.toLowerCase()}`}>{booking.status}</span></p>
+                                            </div>
+                                            <div className='booking__price'>
+                                                <h4>${booking.totalAmount}</h4>
+                                            </div>
                                         </div>
-                                    </ListGroup.Item>
-                                ))}
-                            </ListGroup>
-                        </Card>
+                                    ))}
+                                </div>
+                            </Card>
+                        )}
                     </Col>
                 </Row>
             </Container>

@@ -1,129 +1,147 @@
-import React, { useRef, useEffect, useContext, useState } from 'react'
-import { Container, Row, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import logo from '../../assets/images/logo.png'
-import './header.css'
-import { AuthContext } from './../../context/AuthContext'
-
-const nav__links = [
-  {
-    path: '/home',
-    display: 'Home'
-  },
-  {
-    path: '/tours',
-    display: 'Tours'
-  },
-  {
-    path: '/about',
-    display: 'About'
-  }
-];
+import React, { useRef, useEffect, useState, useContext } from 'react';
+import { Container, Row, Button } from 'reactstrap';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import logo from '../../assets/images/logo.png';
+import './header.css';
 
 const Header = () => {
   const headerRef = useRef(null);
+  const menuRef = useRef(null);
   const navigate = useNavigate();
   const { user, dispatch } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-  const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
 
   const logout = () => {
     dispatch({ type: 'LOGOUT' });
     navigate('/');
+    setDropdownOpen(false);
   };
 
-  const stickyHeaderFunc = () => {
-    window.addEventListener('scroll', () => {
-      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-        headerRef.current.classList.add('sticky__header');
-      } else {
-        headerRef.current.classList.remove('sticky__header');
-      }
-    });
+  const navigateToProfile = () => {
+    navigate('/profile');
+    setDropdownOpen(false);
+  };
+
+  const navigateToBookings = () => {
+    navigate('/bookings');
+    setDropdownOpen(false);
+  };
+
+  const handleClickOutside = (e) => {
+    if (dropdownOpen && !e.target.closest('.user__info')) {
+      setDropdownOpen(false);
+    }
   };
 
   useEffect(() => {
-    stickyHeaderFunc();
-    return () => window.removeEventListener('scroll', stickyHeaderFunc);
-  }, []);
+    const handleScroll = () => {
+      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+        headerRef.current?.classList.add('sticky__header');
+      } else {
+        headerRef.current?.classList.remove('sticky__header');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [dropdownOpen]);
 
   return (
-    <header className="header" ref={headerRef}>
+    <header className='header' ref={headerRef}>
       <Container>
         <Row>
-          <div className="nav__wrapper d-flex align-items-center justify-content-between">
-            {/* Logo */}
-            <div className="logo">
-              <Link to="/">
-                <img src={logo} alt="Travel World logo" />
+          <div className='nav__wrapper d-flex align-items-center justify-content-between'>
+            <div className='logo'>
+              <Link to='/'>
+                <img src={logo} alt='Travel World' />
               </Link>
             </div>
 
-            {/* Main Navigation */}
-            <div className={`navigation ${mobileMenuOpen ? 'show__menu' : ''}`}>
-              <ul className="menu d-flex align-items-center gap-5">
-                {nav__links.map((item, index) => (
-                  <li className="nav__item" key={index}>
-                    <NavLink
-                      to={item.path}
-                      className={navClass => navClass.isActive ? 'active__link' : ''}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item.display}
-                    </NavLink>
-                  </li>
-                ))}
+            <div className={`navigation ${mobileMenuOpen ? 'show__menu' : ''}`} ref={menuRef}>
+              <ul className='menu d-flex align-items-center gap-5'>
+                <li className='nav__item'>
+                  <NavLink 
+                    to='/' 
+                    className={({isActive}) => isActive ? 'active__link' : ''}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Home
+                  </NavLink>
+                </li>
+                <li className='nav__item'>
+                  <NavLink 
+                    to='/tours' 
+                    className={({isActive}) => isActive ? 'active__link' : ''}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Tours
+                  </NavLink>
+                </li>
+                <li className='nav__item'>
+                  <NavLink 
+                    to='/about' 
+                    className={({isActive}) => isActive ? 'active__link' : ''}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    About
+                  </NavLink>
+                </li>
               </ul>
             </div>
 
-            {/* User Navigation */}
-            <div className="nav__right d-flex align-items-center gap-4">
+            <div className='nav__right d-flex align-items-center gap-4'>
               {user ? (
-                <div className="d-flex align-items-center gap-3">
-                  <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
-                    <DropdownToggle className="user__dropdown">
-                      <div className="user__info">
-                        <i className="ri-user-line"></i>
-                        <span>{user.username}</span>
+                <div className='user__info'>
+                  <div className='user__dropdown-toggle' onClick={toggleDropdown}>
+                    <i className='ri-user-line'></i>
+                    <span>{user.username}</span>
+                  </div>
+                  {dropdownOpen && (
+                    <div className='dropdown-menu'>
+                      <div className='dropdown-item' onClick={navigateToProfile}>
+                        <i className='ri-user-settings-line'></i>
+                        Profile
                       </div>
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem tag={Link} to="/profile">
-                        <i className="ri-user-settings-line"></i> Profile
-                      </DropdownItem>
-                      <DropdownItem tag={Link} to="/bookings">
-                        <i className="ri-book-mark-line"></i> My Bookings
-                      </DropdownItem>
-                      {user.role === 'admin' && (
-                        <DropdownItem tag={Link} to="/admin">
-                          <i className="ri-dashboard-line"></i> Dashboard
-                        </DropdownItem>
-                      )}
-                      <DropdownItem divider />
-                      <DropdownItem onClick={logout}>
-                        <i className="ri-logout-box-line"></i> Logout
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
+                      <div className='dropdown-item' onClick={navigateToBookings}>
+                        <i className='ri-calendar-check-line'></i>
+                        My Bookings
+                      </div>
+                      <div className='dropdown-item' onClick={logout}>
+                        <i className='ri-logout-box-line'></i>
+                        Logout
+                      </div>
+                    </div>
+                  )}
                 </div>
               ) : (
-                <div className="nav__btns d-flex align-items-center gap-4">
-                  <Button className="btn secondary__btn">
-                    <Link to="/login">Login</Link>
+                <>
+                  <Button className='btn secondary__btn'>
+                    <Link to='/login'>Login</Link>
                   </Button>
-                  <Button className="btn primary__btn">
-                    <Link to="/register">Register</Link>
+                  <Button className='btn primary__btn'>
+                    <Link to='/register'>Register</Link>
                   </Button>
-                </div>
+                </>
               )}
-
-              {/* Mobile Menu Button */}
-              <div className="mobile__menu" onClick={toggleMobileMenu}>
-                <i className={`ri-menu-${mobileMenuOpen ? 'fold' : 'unfold'}-line`}></i>
-              </div>
+              <span className='mobile__menu' onClick={toggleMobileMenu}>
+                <i className='ri-menu-line'></i>
+              </span>
             </div>
           </div>
         </Row>

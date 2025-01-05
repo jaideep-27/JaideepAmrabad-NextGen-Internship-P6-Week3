@@ -10,12 +10,23 @@
     box-shadow: 3px 3px 8px -3px #ddd;
 }
 
+.nav__wrapper {
+    padding: 0 1rem;
+}
+
+.logo {
+    width: 180px;
+}
+
 .logo img {
-    width: 30%;
+    width: 100%;
+    height: auto;
 }
 
 .menu {
-    margin-bottom: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .nav__item a {
@@ -23,6 +34,7 @@
     color: var(--heading-color);
     font-weight: 500;
     font-size: 1.1rem;
+    transition: color 0.3s ease;
 }
 
 .nav__item a:hover {
@@ -34,10 +46,10 @@
 }
 
 .mobile__menu {
-    font-size: 1.3rem;
-    color: var(--heading-color);
     display: none;
     cursor: pointer;
+    font-size: 1.3rem;
+    color: var(--heading-color);
 }
 
 .sticky__header {
@@ -45,58 +57,91 @@
     height: 80px;
     line-height: 80px;
     background: #fff;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     box-shadow: 3px 3px 8px -3px #ddd;
     z-index: 999;
+    animation: headerSticky 0.3s ease forwards;
 }
 
-.user__dropdown {
-    background: transparent !important;
-    border: none !important;
-    color: var(--heading-color) !important;
-    padding: 0 !important;
-    font-weight: 500;
-}
-
-.user__dropdown:hover,
-.user__dropdown:focus,
-.user__dropdown:active {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+@keyframes headerSticky {
+    from {
+        transform: translateY(-100px);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
 .user__info {
+    position: relative;
+    cursor: pointer;
+}
+
+.user__dropdown-toggle {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.user__dropdown-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .user__info i {
     font-size: 1.3rem;
+    color: var(--heading-color);
 }
 
-.dropdown-menu {
-    padding: 0.5rem 0;
-    border-radius: 0.5rem;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown-item {
-    padding: 0.5rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.user__info span {
     color: var(--heading-color);
     font-weight: 500;
 }
 
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    min-width: 200px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    z-index: 1000;
+    animation: dropdownFade 0.2s ease;
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--heading-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    line-height: 1.2;
+    cursor: pointer;
+}
+
 .dropdown-item i {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    color: var(--primary-color);
 }
 
 .dropdown-item:hover {
@@ -104,19 +149,23 @@
     color: #fff;
 }
 
+.dropdown-item:hover i {
+    color: #fff;
+}
+
 /* Mobile Menu Styles */
 @media only screen and (max-width: 992px) {
-    .logo img {
-        width: 45%;
+    .logo {
+        width: 140px;
     }
 
     .navigation {
         width: 100%;
-        height: 100%;
+        height: 100vh;
         position: fixed;
         top: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(0, 0, 0, 0.7);
         z-index: 999;
         display: none;
     }
@@ -131,10 +180,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        line-height: 0.5rem;
+        gap: 2rem;
+        line-height: 30px;
         padding: 2rem;
         transform: translateX(100%);
-        transition: 0.3s ease;
+        transition: transform 0.3s ease;
     }
 
     .show__menu {
@@ -153,15 +203,24 @@
         position: relative;
         z-index: 1000;
     }
+
+    .nav__right .btn {
+        padding: 0.4rem 1rem !important;
+        font-size: 0.9rem;
+    }
 }
 
 @media only screen and (max-width: 768px) {
-    .logo img {
-        width: 45%;
+    .header {
+        height: 60px;
+        line-height: 60px;
     }
 
-    .nav__btns .btn {
-        padding: 0.5rem 1rem !important;
-        font-size: 0.9rem !important;
+    .logo {
+        width: 120px;
+    }
+
+    .nav__right .btn {
+        display: none;
     }
 }
