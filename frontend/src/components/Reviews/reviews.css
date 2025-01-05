@@ -128,6 +128,112 @@
     background-color: #f8d7da;
 }
 
+.stats-card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.rating-overview {
+    display: flex;
+    gap: 30px;
+}
+
+.average-rating {
+    flex: 0 0 200px;
+    text-align: center;
+    padding: 20px;
+    border-right: 1px solid #eee;
+}
+
+.average-rating h2 {
+    font-size: 48px;
+    color: var(--heading-color);
+    margin-bottom: 10px;
+}
+
+.average-rating p {
+    color: #666;
+    margin-top: 10px;
+}
+
+.rating-bars {
+    flex: 1;
+    padding: 10px;
+}
+
+.rating-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.rating-bar span {
+    flex: 0 0 60px;
+    color: #666;
+}
+
+.rating-bar .progress {
+    flex: 1;
+    height: 8px;
+    background-color: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.rating-bar .progress-bar {
+    height: 100%;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.dropdown-toggle {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: #495057;
+}
+
+.dropdown-toggle:hover,
+.dropdown-toggle:focus {
+    background-color: #f8f9fa;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.dropdown-menu {
+    width: 100%;
+    padding: 8px 0;
+    margin-top: 5px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    padding: 8px 15px;
+    color: #495057;
+    transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: var(--secondary-color);
+}
+
+.dropdown-item.active {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
 @media (max-width: 768px) {
     .review-header {
         flex-direction: column;
@@ -145,5 +251,20 @@
 
     .reply-form button {
         width: 100%;
+    }
+
+    .rating-overview {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .average-rating {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+    }
+
+    .rating-bars {
+        padding: 0;
     }
 }

@@ -301,3 +301,65 @@ export const reportReview = async (req, res) => {
         });
     }
 };
+
+// Get review statistics for a tour
+export const getReviewStats = async (req, res) => {
+    try {
+        const tourId = req.params.tourId;
+
+        // Get average rating and total reviews
+        const stats = await Review.aggregate([
+            {
+                $match: {
+                    tour: mongoose.Types.ObjectId(tourId),
+                    status: 'active'
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    averageRating: { $avg: '$rating' },
+                    totalReviews: { $sum: 1 }
+                }
+            }
+        ]);
+
+        // Get rating distribution
+        const distribution = await Review.aggregate([
+            {
+                $match: {
+                    tour: mongoose.Types.ObjectId(tourId),
+                    status: 'active'
+                }
+            },
+            {
+                $group: {
+                    _id: '$rating',
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+
+        // Format distribution data
+        const ratingDistribution = {
+            1: 0, 2: 0, 3: 0, 4: 0, 5: 0
+        };
+        distribution.forEach(({ _id, count }) => {
+            ratingDistribution[_id] = count;
+        });
+
+        res.status(200).json({
+            success: true,
+            data: {
+                averageRating: stats[0]?.averageRating || 0,
+                totalReviews: stats[0]?.totalReviews || 0,
+                ratingDistribution
+            }
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch review statistics: ' + err.message
+        });
+    }
+};

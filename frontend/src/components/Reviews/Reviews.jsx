@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Container, Row, Col, Button, Form, Card } from 'reactstrap';
+import { Container, Row, Col, Button, Form, Card, Dropdown } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 import { AuthContext } from '../../context/AuthContext';
@@ -21,12 +21,22 @@ const Reviews = () => {
         reviewText: '',
         photos: []
     });
+    const [sortBy, setSortBy] = useState('-createdAt');
+    const [filterRating, setFilterRating] = useState('all');
+    const [stats, setStats] = useState({
+        averageRating: 0,
+        totalReviews: 0,
+        ratingDistribution: {
+            1: 0, 2: 0, 3: 0, 4: 0, 5: 0
+        }
+    });
 
     // Fetch reviews
     const fetchReviews = async (page = 1) => {
         try {
+            const ratingFilter = filterRating !== 'all' ? `&rating=${filterRating}` : '';
             const res = await fetch(
-                `${BASE_URL}/reviews/tour/${tourId}?page=${page}&limit=5`,
+                `${BASE_URL}/reviews/tour/${tourId}?page=${page}&limit=5&sort=${sortBy}${ratingFilter}`,
                 {
                     method: 'GET',
                     credentials: 'include'
@@ -48,9 +58,29 @@ const Reviews = () => {
         }
     };
 
+    // Fetch review statistics
+    const fetchReviewStats = async () => {
+        try {
+            const res = await fetch(`${BASE_URL}/reviews/stats/${tourId}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+            const result = await res.json();
+
+            if (!res.ok) {
+                throw new Error(result.message);
+            }
+
+            setStats(result.data);
+        } catch (err) {
+            console.error('Failed to fetch review stats:', err);
+        }
+    };
+
     useEffect(() => {
         fetchReviews();
-    }, [tourId]);
+        fetchReviewStats();
+    }, [tourId, sortBy, filterRating]);
 
     // Submit new review
     const handleSubmitReview = async (e) => {
@@ -154,6 +184,93 @@ const Reviews = () => {
     return (
         <section className="reviews__section">
             <Container>
+                {/* Review Statistics */}
+                <Row className="mb-4">
+                    <Col>
+                        <Card className="stats-card">
+                            <div className="rating-overview">
+                                <div className="average-rating">
+                                    <h2>{stats.averageRating.toFixed(1)}</h2>
+                                    <StarRatings
+                                        rating={stats.averageRating}
+                                        starRatedColor="#faa935"
+                                        numberOfStars={5}
+                                        starDimension="20px"
+                                        starSpacing="2px"
+                                    />
+                                    <p>{stats.totalReviews} reviews</p>
+                                </div>
+                                <div className="rating-bars">
+                                    {Object.entries(stats.ratingDistribution)
+                                        .reverse()
+                                        .map(([rating, count]) => (
+                                            <div key={rating} className="rating-bar">
+                                                <span>{rating} star</span>
+                                                <div className="progress">
+                                                    <div
+                                                        className="progress-bar"
+                                                        style={{
+                                                            width: `${(count / stats.totalReviews) * 100}%`
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                                <span>{count}</span>
+                                            </div>
+                                        ))}
+                                </div>
+                            </div>
+                        </Card>
+                    </Col>
+                </Row>
+
+                {/* Sort and Filter Controls */}
+                <Row className="mb-4">
+                    <Col xs="12" md="6" className="mb-2">
+                        <Dropdown>
+                            <Dropdown.Toggle variant="outline-primary">
+                                Sort by: {sortBy === '-createdAt' ? 'Newest' : 
+                                         sortBy === 'createdAt' ? 'Oldest' :
+                                         sortBy === '-rating' ? 'Highest Rating' :
+                                         'Lowest Rating'}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => setSortBy('-createdAt')}>
+                                    Newest First
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSortBy('createdAt')}>
+                                    Oldest First
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSortBy('-rating')}>
+                                    Highest Rating
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={() => setSortBy('rating')}>
+                                    Lowest Rating
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
+                    <Col xs="12" md="6">
+                        <Dropdown>
+                            <Dropdown.Toggle variant="outline-primary">
+                                Filter by: {filterRating === 'all' ? 'All Ratings' : `${filterRating} Stars`}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => setFilterRating('all')}>
+                                    All Ratings
+                                </Dropdown.Item>
+                                {[5, 4, 3, 2, 1].map(rating => (
+                                    <Dropdown.Item 
+                                        key={rating}
+                                        onClick={() => setFilterRating(rating)}
+                                    >
+                                        {rating} Stars
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
+                </Row>
+
                 {user && (
                     <Row className="mb-4">
                         <Col>

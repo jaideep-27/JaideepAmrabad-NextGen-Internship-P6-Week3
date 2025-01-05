@@ -7,7 +7,8 @@ import {
     getUserReviews,
     toggleReviewLike,
     addReviewReply,
-    reportReview
+    reportReview,
+    getReviewStats
 } from '../controllers/reviewController.js';
 import { verifyUser } from '../utils/verifyToken.js';
 
@@ -24,6 +25,9 @@ router.delete('/:id', verifyUser, deleteReview);
 
 // Get reviews for a tour
 router.get('/tour/:tourId', getTourReviews);
+
+// Get review statistics for a tour
+router.get('/stats/:tourId', getReviewStats);
 
 // Get user's reviews
 router.get('/user/:userId?', verifyUser, getUserReviews);
