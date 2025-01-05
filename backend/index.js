@@ -18,7 +18,9 @@ const corsOptions ={
     origin: process.env.NODE_ENV === 'production' 
         ? ['https://tour-management-7.netlify.app', 'https://tour-management-backend-8ubu.onrender.com']
         : 'http://localhost:3000',
-    credentials:true
+    credentials:true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }
 
 //db connectivity
@@ -32,9 +34,10 @@ const connect = async () => {
 };
 
 // middleware
-app.use(express.json())
 app.use(cors(corsOptions))
 app.use(cookieParser())
+app.use(express.json())
+app.options('*', cors(corsOptions))
 
 app.use('/api/v1/auth',authRoute)
 app.use('/api/v1/tours',tourRoute)

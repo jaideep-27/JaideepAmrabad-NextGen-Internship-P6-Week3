@@ -30,29 +30,31 @@ const navigate = useNavigate()
     dispatch({type:'LOGIN_START'})
     
     try {
-
       const res = await fetch(`${BASE_URL}/auth/login`,{
-        method:'post',
+        method:'POST',
         headers:{
-          'content-type':'application/json',
+          'Content-Type':'application/json',
         },
         credentials:'include',
         body:JSON.stringify(credentials)
       })
 
       const result = await res.json()
-      if(!res.ok) alert(result.message)
-
-      console.log(result.data);
       
+      if(!res.ok) {
+        dispatch({type:'LOGIN_FAILURE', payload: result.message})
+        alert(result.message)
+        return
+      }
 
-        dispatch({type:'LOGIN_SUCCESS', payload:result.data})
+      dispatch({type:'LOGIN_SUCCESS', payload:result.data})
       navigate('/')
-
+      
     } catch (err) {
-      dispatch({type:'LOGIN_FAILLURE', payload:err.message})
+      dispatch({type:'LOGIN_FAILURE', payload: err.message})
+      alert(err.message)
     }
-  }
+  };
 
   return (
 <section>
