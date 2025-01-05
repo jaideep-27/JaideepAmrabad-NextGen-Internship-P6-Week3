@@ -6,12 +6,15 @@
     top: 0;
     left: 0;
     background: #fff;
-    z-index: 999;
+    z-index: 9999;
     box-shadow: 3px 3px 8px -3px #ddd;
 }
 
 .nav__wrapper {
-    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
 }
 
 .logo {
@@ -38,11 +41,11 @@
 }
 
 .nav__item a:hover {
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .nav__item a.active__link {
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .mobile__menu {
@@ -61,7 +64,7 @@
     top: 0;
     left: 0;
     box-shadow: 3px 3px 8px -3px #ddd;
-    z-index: 999;
+    z-index: 9999;
     animation: headerSticky 0.3s ease forwards;
 }
 
@@ -74,9 +77,44 @@
     }
 }
 
+/* Add margin to main content to prevent overlap */
+main {
+    margin-top: 80px;
+}
+
+.nav__right .btn {
+    padding: 0.5rem 1.5rem !important;
+    color: var(--heading-color);
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.nav__right .btn:hover {
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+.nav__right .btn.secondary__btn {
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+.nav__right .btn.primary__btn {
+    background: var(--primary-color);
+    color: #fff;
+}
+
 .user__info {
     position: relative;
     cursor: pointer;
+    padding: 0 1rem;
+}
+
+.user__info i {
+    font-size: 1.3rem;
+    color: var(--heading-color);
+    margin-right: 0.5rem;
 }
 
 .user__dropdown-toggle {
@@ -92,11 +130,6 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-.user__info i {
-    font-size: 1.3rem;
-    color: var(--heading-color);
-}
-
 .user__info span {
     color: var(--heading-color);
     font-weight: 500;
@@ -104,14 +137,14 @@
 
 .dropdown-menu {
     position: absolute;
-    top: calc(100% + 5px);
+    top: 100%;
     right: 0;
-    min-width: 200px;
+    width: 200px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem;
-    z-index: 1000;
+    padding: 0.5rem 0;
+    z-index: 9999;
     animation: dropdownFade 0.2s ease;
 }
 
@@ -127,25 +160,22 @@
 }
 
 .dropdown-item {
+    padding: 0.5rem 1.5rem;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
+    column-gap: 0.5rem;
     color: var(--heading-color);
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border-radius: 4px;
-    line-height: 1.2;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .dropdown-item i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--primary-color);
 }
 
 .dropdown-item:hover {
-    background-color: var(--primary-color);
+    background: var(--secondary-color);
     color: #fff;
 }
 
@@ -161,12 +191,12 @@
 
     .navigation {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         position: fixed;
         top: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 999;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 9999;
         display: none;
     }
 
@@ -178,10 +208,10 @@
         height: 100%;
         background: #fff;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         gap: 2rem;
-        line-height: 30px;
+        z-index: 9999;
         padding: 2rem;
         transform: translateX(100%);
         transition: transform 0.3s ease;
@@ -206,7 +236,7 @@
 
     .nav__right .btn {
         padding: 0.4rem 1rem !important;
-        font-size: 0.9rem;
+        font-size: 0.9rem !important;
     }
 }
 
